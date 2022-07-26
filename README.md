@@ -2,7 +2,6 @@
 [![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)&nbsp;&nbsp;
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)&nbsp;&nbsp;
 [![Npm package license](https://badgen.net/npm/llicense/discord.js)](https://npmjs.com/package/discord.js)&nbsp;&nbsp;
-[![GitHub forks](https://badgen.net/github/forks/Naereen/Strapdown.js/)](https://GitHub.com/epigraph-us/epigraph-configurator-starter/network/)
 
 # epigraph-configurator-starter
 Aims to be a starting point for setting up the epigraph-configurator web component on a webpage. 
