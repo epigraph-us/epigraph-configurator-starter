@@ -30,6 +30,20 @@ function main() {
                 EPIGRAPH_CONFIGURATOR_WC.api.core.loadSceneFromConfigurationID(configID);
             });
 
+            const redVariantBtn = document.getElementById("redVariantBtn");
+            redVariantBtn.addEventListener('click', () => {
+                const lookCategory = redVariantBtn.getAttribute("look-category");
+                const lookVariant = redVariantBtn.getAttribute("look-variant");
+                EPIGRAPH_CONFIGURATOR_WC.api.core.switchGlobalVariant(lookCategory, lookVariant);
+            });
+
+            const blackVariantBtn = document.getElementById("blackVariantBtn");
+            blackVariantBtn.addEventListener('click', () => {
+                const lookCategory = blackVariantBtn.getAttribute("look-category");
+                const lookVariant = blackVariantBtn.getAttribute("look-variant");
+                EPIGRAPH_CONFIGURATOR_WC.api.core.switchGlobalVariant(lookCategory, lookVariant);
+            });
+
         }
     );
 
