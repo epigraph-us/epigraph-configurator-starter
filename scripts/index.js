@@ -1,4 +1,5 @@
 var api_ready = false;
+
 function main() {
     var EPIGRAPH_CONFIGURATOR_WC = document.getElementById("wcEpigraphConfigurator");
 
@@ -28,7 +29,7 @@ function main() {
                 const configID = loadconfig3.getAttribute("config-id");
                 EPIGRAPH_CONFIGURATOR_WC.api.core.loadSceneFromConfigurationID(configID);
             });
-            
+
         }
     );
 
