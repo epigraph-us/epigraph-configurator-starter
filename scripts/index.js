@@ -18,13 +18,13 @@ function main() {
             });
 
             const loadconfig2 = document.getElementById("loadconfig2");
-            loadconfig1.addEventListener('click', () => {
+            loadconfig2.addEventListener('click', () => {
                 const configID = loadconfig2.getAttribute("config-id");
                 EPIGRAPH_CONFIGURATOR_WC.api.core.loadSceneFromConfigurationID(configID);
             });
 
             const loadconfig3 = document.getElementById("loadconfig3");
-            loadconfig1.addEventListener('click', () => {
+            loadconfig3.addEventListener('click', () => {
                 const configID = loadconfig3.getAttribute("config-id");
                 EPIGRAPH_CONFIGURATOR_WC.api.core.loadSceneFromConfigurationID(configID);
             });
