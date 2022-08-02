@@ -4,7 +4,7 @@ function main() {
     var EPIGRAPH_CONFIGURATOR_WC = document.getElementById("wcEpigraphConfigurator");
 
     EPIGRAPH_CONFIGURATOR_WC.addEventListener(
-        "core-app-connected",
+        "coreApi:ready",
         function (event) {
             console.log("Core API successfully initialised.");
             api_ready = true;
