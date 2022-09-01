@@ -10,3 +10,5 @@ Each scenario would be different but this repository should give a clear idea of
 
 
 The documentation for the same could be found here: https://epg-configurator-client-docs-dot-composite-sun-338620.uc.r.appspot.com/
+
+IMPORTANT: Make sure to run this localhost (it won't work on 127.0.0.1)
