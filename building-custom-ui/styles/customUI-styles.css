@@ -35,10 +35,11 @@ body {
 .custom-buttons-container {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 100px;
   background-color: rgb(197, 197, 197);
   padding: 20px;
   box-sizing: border-box;
+  overflow-y: scroll;
 }
 
 .preconfigured-scenes-button-container {
@@ -50,6 +51,7 @@ body {
 .generic-button {
   width: 100px;
   height: 100px;
+  min-height: 100px;
   margin: 0.5rem;
   cursor: pointer;
   border-radius: 10px;

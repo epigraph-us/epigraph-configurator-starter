@@ -100,6 +100,12 @@ function setupColourVariantThumbnails() {
 }
 
 
+function setupViewInYourSpaceButton() {
+    const viewInYourSpaceButton = document.getElementById('viewInYourSpace');
+    viewInYourSpaceButton.addEventListener("click", () => { EPIGRAPH_CORE_API.viewInYourSpace() });
+}
+
+
 function main() {
     var EPIGRAPH_CONFIGURATOR_WC = document.getElementById("wcEpigraphConfigurator");
 
@@ -116,6 +122,9 @@ function main() {
 
             // Setting up the Colour Variant Switcher.
             setupColourVariantThumbnails();
+
+            // Setting up View In Your Space
+            setupViewInYourSpaceButton();
         }
     );
 
