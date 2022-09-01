@@ -16,20 +16,47 @@
 </head>
 
 <body>
-  <div class="epg-configurator-container">
-    <!-- A client-access-key can only be linked to a single domain, so if you would like to whitelist your staging URL as well, please request a separate key for the same. -->
-    <epigraph-configurator id="wcEpigraphConfigurator" client-access-key="35TJFcE79FgW0aarDT" disable-ui />
-  </div>
+  <div class="main-container">
+    <div class="epg-configurator-container">
+      <!-- A client-access-key can only be linked to a single domain, so if you would like to whitelist your staging URL as well, please request a separate key for the same. -->
+      <epigraph-configurator id="wcEpigraphConfigurator" client-access-key="vDJwETd75rP4" disable-ui />
+    </div>
 
-  <div class="customButtons">
-    <button config-id="V60F75xcuUse6tfAn8bl" id="loadconfig1">Load CONFIG 1</button>
-    <button config-id="BrQlzXwUGVoNjPxjKjzr" id="loadconfig2">Load CONFIG 2</button>
-    <button config-id="dAeHhAgQKBmhlf9MoOsc" id="loadconfig3">Load CONFIG 3</button>
-    <br />
-    <button look-category="exterior" look-variant="red" id="redVariantBtn">Red Variant</button>
-    <button look-category="exterior" look-variant="black" id="blackVariantBtn">Black Variant</button>
+    <div class="custom-buttons-container">
+      <div class="category-title">
+        Preconfigured Products
+      </div>
+      <p>(Click on one of the below buttons to load a preconfiguration from database)</p>
+      <div class="preconfigured-scenes-button-container">
+        <button class="generic-button" config-id="mWVXMSG5o1TwaqTTNd16" id="loadconfig1">Load CONFIG 1 (ID)</button>
+        <button class="generic-button" id="loadconfig2">Load CONFIG 2 (JSON)</button>
+      </div>
+      <br />
+      <div class="category-title">
+        Wood Finishes
+      </div>
+      <div class="preconfigured-scenes-button-container">
+        <button class="generic-button colour-thumbnail" look-category="wood" look-variant="birch"
+          id="birchVariantBtn">Birch Variant</button>
+        <button class="generic-button colour-thumbnail" look-category="wood" look-variant="oak" id="oakVariantBtn">Oak
+          Variant</button>
+        <button class="generic-button colour-thumbnail" look-category="wood" look-variant="walnut"
+          id="walnutVariantBtn">Walnut Variant</button>
+      </div>
+      <br />
+      <div class="category-title">
+        Hardware Finishes
+      </div>
+      <div class="preconfigured-scenes-button-container">
+        <button class="generic-button colour-thumbnail" look-category="hardware" look-variant="black"
+          id="blackHardwareVariantBtn">Black Variant</button>
+        <button class="generic-button colour-thumbnail" look-category="hardware" look-variant="white"
+          id="whiteHardwareVariantBtn">White Variant</button>
+      </div>
+    </div>
   </div>
 </body>
+
 <script src="./scripts/index.js"></script>
 
 </html>

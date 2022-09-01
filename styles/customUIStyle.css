@@ -8,21 +8,55 @@ body {
   overflow: hidden;
 }
 
+.main-container {
+  width: 90vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: row;
+}
+
 .epg-configurator-container {
-    width: 95%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #wcEpigraphConfigurator {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
-.customButtons {
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: sans-serif;
+}
+
+.custom-buttons-container {
   display: flex;
   flex-direction: column;
+  min-width: 300px;
+  background-color: rgb(197, 197, 197);
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.customButtons button{
+.preconfigured-scenes-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.generic-button {
+  width: 100px;
+  height: 100px;
   margin: 0.5rem;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.generic-button:hover {
+  background-color: black;
+  color: white;
 }
