@@ -8,7 +8,12 @@ Aims to be a starting point for setting up the epigraph-configurator web compone
 Each scenario would be different but this repository should give a clear idea of what the process looks like.
 
 
+## Instruction to run this on your machine:
+1. Install an extension of your choice in your IDE to launch either "index-customUI.html" or "index-defaultUI.html", depending on your usage.
+2. If the extension that you are using, launches the browser automatically, make sure to replace your local address with "localhost" for eg. "http://127.0.0.1:5500/building-custom-ui/index-customUI.html" would become "http://localhost:5500/building-custom-ui/index-customUI.html"
 
-The documentation for the same could be found here: https://epg-configurator-client-docs-dot-composite-sun-338620.uc.r.appspot.com/
 
-IMPORTANT: Make sure to run this on "http://localhost:5500/" (it won't work on your local IP address)
+> IMPORTANT: Make sure to run this on "http://localhost" (it won't work on your local address).
+
+
+A more detailed documentation for the web component could be found here: https://epg-configurator-client-docs-dot-composite-sun-338620.uc.r.appspot.com/
