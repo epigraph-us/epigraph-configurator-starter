@@ -24,6 +24,7 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
+  opacity: 0;
 }
 
 .category-title {
@@ -61,4 +62,16 @@ body {
 .generic-button:hover {
   background-color: black;
   color: white;
+}
+
+epigraph-configurator:defined {
+  opacity: 1 !important;
+}
+
+epigraph-configurator::part(circular-loader) {
+  border: 8px solid #0000001a;
+  border-top: 8px solid #000000;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
 }
