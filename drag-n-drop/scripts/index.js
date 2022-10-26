@@ -68,6 +68,7 @@ function hasEnteredCanvas(e) {
 
 
 function dragCurrentThumbnail(e) {
+    // Calculating the position for the thumbnail that's being dragged
     CURRENTLY_DRAGGING_ELEM.style.top = `${e.clientY - CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE.height}px`;
     CURRENTLY_DRAGGING_ELEM.style.left = `${e.clientX - CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE.width}px`;
 
