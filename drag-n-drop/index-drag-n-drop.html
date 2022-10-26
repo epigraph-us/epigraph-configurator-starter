@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Epigraph Configurator Starter</title>
+  <link href="https://uploads-ssl.webflow.com/6093e8a890324d3b27e0f3ca/60bf73e5b8eb368962d88aa7_favicon.png"
+    rel="shortcut icon" type="image/x-icon" />
+
+  <!-- Instructions here: https://epg-configurator-client-docs-dot-composite-sun-338620.uc.r.appspot.com/user-docs/intro/index.html -->
+  <script src="https://unpkg.com/@epigraph/configurator"></script>
+
+  <link rel="stylesheet" href="./styles/customUI-styles.css">
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="epg-configurator-container">
+      <!-- A client-access-key can only be linked to a single domain, so if you would like to whitelist your staging URL as well, please request a separate key for the same. -->
+      <epigraph-configurator id="wcEpigraphConfigurator" client-access-key="UH0CVqiMFvx1" disable-ui />
+    </div>
+
+    <div class="custom-buttons-container">
+      <div class="category-title">
+        Preconfigured Products
+      </div>
+      <p>(Drag an item from the list below and drop it within the 3D viewport, to add it to the scene)</p>
+      <div class="product-buttons-container" id="productButtonsContainer">
+        <!-- Thumbnails would be populated from JS -->
+      </div>
+    </div>
+
+    <img id="currentlyDragging" class="currently-dragging" draggable="false" src="" alt="">
+  </div>
+</body>
+
+<script src="./scripts/index.js"></script>
+
+</html>
