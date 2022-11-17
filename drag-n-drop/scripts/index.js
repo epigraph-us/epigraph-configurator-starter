@@ -37,16 +37,6 @@ function startDragging(e) {
     CURRENTLY_DRAGGING_ELEM.src = e.target.getAttribute("src");
     CURRENT_PRODUCT_ID = e.target.getAttribute("id");
 
-    document.addEventListener(
-        "mouseup",
-        () => {
-            EPIGRAPH_CORE_API.itemDragEnd();
-            CURRENT_PRODUCT_ID = undefined;
-            document.removeEventListener("mousemove", dragCurrentThumbnail);
-            CURRENTLY_DRAGGING_ELEM.classList.remove("show");
-        }
-    );
-
     // This call helps ensure that the dragging element is positioned 
     // at the correct location before being displayed 
     dragCurrentThumbnail(e);
@@ -81,6 +71,7 @@ function dragCurrentThumbnail(e) {
     }
     else {
         if (CURRENTLY_DRAGGING === true) {
+            console.log("THIS IS THE PROBLEM");
             EPIGRAPH_CORE_API.itemDragEnd();
             CURRENTLY_DRAGGING = false;
         }
@@ -96,10 +87,23 @@ function setupDraggableThumbnails() {
     for (const draggableThumbnail of allDraggableThumbnails) {
         draggableThumbnail.addEventListener("mousedown", startDragging);
     }
+
+    document.addEventListener(
+        "mouseup",
+        () => {
+            if (CURRENT_PRODUCT_ID !== undefined) {
+                EPIGRAPH_CORE_API.itemDragEnd();
+                CURRENT_PRODUCT_ID = undefined;
+                CURRENTLY_DRAGGING_ELEM.classList.remove("show");
+                CURRENTLY_DRAGGING = false;
+                document.removeEventListener("mousemove", dragCurrentThumbnail);
+            }
+        }
+    );
 }
 
 
-function main() {
+async function main() {
     var EPIGRAPH_CONFIGURATOR_WC = document.getElementById(CONFIGURATOR_WC_ID);
 
     EPIGRAPH_CONFIGURATOR_WC.addEventListener(
