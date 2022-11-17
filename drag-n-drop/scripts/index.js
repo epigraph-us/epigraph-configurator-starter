@@ -71,7 +71,6 @@ function dragCurrentThumbnail(e) {
     }
     else {
         if (CURRENTLY_DRAGGING === true) {
-            console.log("THIS IS THE PROBLEM");
             EPIGRAPH_CORE_API.itemDragEnd();
             CURRENTLY_DRAGGING = false;
         }
