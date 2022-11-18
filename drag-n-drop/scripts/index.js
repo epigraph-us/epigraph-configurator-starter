@@ -33,14 +33,21 @@ function populateBuildTab(productData) {
 }
 
 
-function startDragging(e) {
+function startDragging(rawEvent) {
+    rawEvent.stopPropagation();
+    const e = rawEvent.touches ? rawEvent.touches[0] : rawEvent;
+
     CURRENTLY_DRAGGING_ELEM.src = e.target.getAttribute("src");
     CURRENT_PRODUCT_ID = e.target.getAttribute("id");
 
     // This call helps ensure that the dragging element is positioned 
-    // at the correct location before being displayed 
-    dragCurrentThumbnail(e);
+    // at the correct location before being displayed.
+    // The reason we send 'rawEvent' and not 'e' is because we need to 
+    // stopPropagation on this event
+    dragCurrentThumbnail(rawEvent);
+
     document.addEventListener("mousemove", dragCurrentThumbnail);
+    document.addEventListener("touchmove", dragCurrentThumbnail);
 
     CURRENTLY_DRAGGING_ELEM.classList.add("show");
 }
@@ -57,7 +64,10 @@ function hasEnteredCanvas(e) {
 }
 
 
-function dragCurrentThumbnail(e) {
+function dragCurrentThumbnail(rawEvent) {
+    const e = rawEvent.touches ? rawEvent.touches[0] : rawEvent;
+    rawEvent.stopPropagation();
+
     // Calculating the position for the thumbnail that's being dragged
     CURRENTLY_DRAGGING_ELEM.style.top = `${e.clientY - CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE.height}px`;
     CURRENTLY_DRAGGING_ELEM.style.left = `${e.clientX - CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE.width}px`;
@@ -85,6 +95,7 @@ function setupDraggableThumbnails() {
 
     for (const draggableThumbnail of allDraggableThumbnails) {
         draggableThumbnail.addEventListener("mousedown", startDragging);
+        draggableThumbnail.addEventListener("touchstart", startDragging);
     }
 
     document.addEventListener(
@@ -96,6 +107,19 @@ function setupDraggableThumbnails() {
                 CURRENTLY_DRAGGING_ELEM.classList.remove("show");
                 CURRENTLY_DRAGGING = false;
                 document.removeEventListener("mousemove", dragCurrentThumbnail);
+            }
+        }
+    );
+
+    document.addEventListener(
+        "touchend",
+        () => {
+            if (CURRENT_PRODUCT_ID !== undefined) {
+                EPIGRAPH_CORE_API.itemDragEnd();
+                CURRENT_PRODUCT_ID = undefined;
+                CURRENTLY_DRAGGING_ELEM.classList.remove("show");
+                CURRENTLY_DRAGGING = false;
+                document.removeEventListener("touchmove", dragCurrentThumbnail);
             }
         }
     );
