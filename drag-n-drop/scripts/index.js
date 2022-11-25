@@ -1,3 +1,4 @@
+var EPIGRAPH_CONFIGURATOR_WC;
 var EPIGRAPH_CORE_API = undefined; // Storing a reference to the API directly.
 const CONFIGURATOR_WC_ID = "wcEpigraphConfigurator";
 var CURRENTLY_DRAGGING_ELEM, CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE = undefined;
@@ -125,9 +126,97 @@ function setupDraggableThumbnails() {
     );
 }
 
+var contextMenuVisible = false;
+
+function showContextMenu() {
+    contextMenuContainer.classList.add("show-context-menu");
+}
+
+function hideContextMenu() {
+    contextMenuContainer.classList.remove("show-context-menu");
+}
+
+function overrideVariant(e) {
+    const elementValue = e.getAttribute("value");
+    const splitValue = elementValue.split("<@>");
+    EPIGRAPH_CORE_API.overrideItemMaterialByGuid(splitValue[0], splitValue[1])
+}
+
+function flushContextMenu() {
+    const allThumbnails = [...contextMenuContainer.getElementsByClassName("context-menu-thumbnail")];
+
+    for (const entry of allThumbnails) {
+        entry.remove();
+    }
+}
+
+/**
+ * Populates the context menu with provided details that we get from the event.
+ * 
+ * @param {*} details 
+ */
+function populateContextMenu(details) {
+    const contextMenuThumbnailsContainer = contextMenuContainer.querySelector("#contextMenuThumbnailsContainer");
+    details = details.data.primary;
+
+    const looks = [...details.data.itemData.looks.sort()];
+
+    const contextMenuTargetItemElement = contextMenuContainer.querySelector("#contextMenuTargetItem");
+    contextMenuTargetItemElement.innerHTML = details.name;
+
+    for (const entry of looks) {
+        const contextMenuThumbnail = `
+        <div class="context-menu-thumbnail" value="${details.guid}<@>${entry}" onclick="overrideVariant(this)">
+          <img src="https://via.placeholder.com/150" style="height: 80%;" alt="">
+          <div style="height: 20%;">${entry}</div>
+        </div>
+        `;
+
+        contextMenuThumbnailsContainer.insertAdjacentHTML("beforeEnd", contextMenuThumbnail);
+    }
+}
+
+var contextMenuContainer;
+
+function setupCustomContextMenu() {
+    contextMenuContainer = document.getElementById("contextMenuContainer");
+
+    EPIGRAPH_CONFIGURATOR_WC.addEventListener(
+        EPIGRAPH_CORE_API.EVENTS.UI.ContextMenu_Show,
+        (e) => {
+            if (contextMenuVisible === false) {
+                contextMenuVisible = true;
+            }
+
+            // Clear existing data from the context menu.
+            flushContextMenu();
+            // Populate the context menu with new data.
+            populateContextMenu(e);
+            // Finally display the context menu.
+            // You may implement whatever you wish to within this function call.
+            showContextMenu();
+        }
+    );
+
+    EPIGRAPH_CONFIGURATOR_WC.addEventListener(
+        EPIGRAPH_CORE_API.EVENTS.UI.ContextMenu_Hide,
+        (e) => {
+            contextMenuVisible = false;
+            // Finally display the context menu.
+            // You may implement whatever you wish to within this function call.
+            hideContextMenu();
+        }
+    );
+
+
+    const contextMenuCloseButton = contextMenuContainer.querySelector("#contextMenuCloseButton");
+    contextMenuCloseButton.onclick = () => {
+        EPIGRAPH_CORE_API.closeContextMenu()
+    };
+}
 
 async function main() {
-    var EPIGRAPH_CONFIGURATOR_WC = document.getElementById(CONFIGURATOR_WC_ID);
+    EPIGRAPH_CONFIGURATOR_WC = document.getElementById(CONFIGURATOR_WC_ID);
 
     EPIGRAPH_CONFIGURATOR_WC.addEventListener(
         "coreApi:ready",
@@ -144,6 +233,8 @@ async function main() {
              * Setting up the draggable thumbnails.
             */
             setupDraggableThumbnails();
+
+            setupCustomContextMenu();
         }
     );
 

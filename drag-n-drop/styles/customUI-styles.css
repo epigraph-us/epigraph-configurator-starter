@@ -37,6 +37,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 100px;
+  max-width: 30%;
   background-color: rgb(197, 197, 197);
   padding: 20px;
   box-sizing: border-box;
@@ -67,6 +68,7 @@ body {
   width: 100px;
   height: 100px;
   pointer-events: none;
+  z-index: 3;
 }
 
 .show {
@@ -88,6 +90,7 @@ body {
   color: white;
 }
 
+/* ------------------ Configurator Styles ------------------ */
 epigraph-configurator:defined {
   opacity: 1 !important;
 }
@@ -98,4 +101,91 @@ epigraph-configurator::part(circular-loader) {
   border-radius: 50%;
   width: 140px;
   height: 140px;
+}
+
+/* ------------------ Custom Context Menu Styles ------------------ */
+.context-menu-container {
+  max-width: 400px;
+  height: 150px;
+  max-height: 150px;
+  background-color: gray;
+  position: absolute;
+  z-index: 3;
+  opacity: 0;
+  transition: 0.5s;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+}
+
+.show-context-menu {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.context-menu-info-container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.context-menu-thumbnails-container {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.context-menu-thumbnails-container::-webkit-scrollbar {
+  width: 10px;
+  height: 2px;
+}
+
+/* Track */
+.context-menu-thumbnails-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.context-menu-thumbnails-container::-webkit-scrollbar-thumb {
+  background: red;
+}
+
+/* Handle on hover */
+.context-menu-thumbnails-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.context-menu-thumbnail {
+  position: relative;
+  min-width: 100px;
+  width: 100%;
+  max-width: 100px;
+  min-height: 100px;
+  height: 100%;
+  max-height: 100px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 5px;
+  box-sizing: border-box;
+  gap: 5px;
+  align-items: center;
+}
+
+.context-menu-thumbnail:hover {
+  background-color: rgba(0, 0, 0, 0.4);
 }
