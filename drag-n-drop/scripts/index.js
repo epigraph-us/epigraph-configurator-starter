@@ -1,3 +1,4 @@
+var EPIGRAPH_CONFIGURATOR_WC, contextMenuContainer;
 var EPIGRAPH_CORE_API = undefined; // Storing a reference to the API directly.
 const CONFIGURATOR_WC_ID = "wcEpigraphConfigurator";
 var CURRENTLY_DRAGGING_ELEM, CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE = undefined;
@@ -126,8 +127,118 @@ function setupDraggableThumbnails() {
 }
 
 
+// ----------------- CUSTOM CONTEXT MENU IMPLEMENTATION -----------------
+var contextMenuVisible = false;
+
+/**
+ * Function to handle what happens when the context menu is to be displayed.
+ */
+function showContextMenu() {
+    contextMenuContainer.classList.add("show-context-menu");
+}
+
+/**
+ * Function to handle what happens when the context menu is to be hidden.
+ */
+function hideContextMenu() {
+    contextMenuContainer.classList.remove("show-context-menu");
+}
+
+/**
+ * Overrides the variant in scene.
+ * 
+ * @param {HTMLElement} elem Expects the button element where this method was called from.
+ *              Also, that button must contain a value attribute which contains 
+ *              the guid and the variant name concatenated using the separator "<@>"
+ */
+function overrideVariant(elem) {
+    const elementValue = elem.getAttribute("value");
+    const splitValue = elementValue.split("<@>");
+    EPIGRAPH_CORE_API.overrideItemMaterialByGuid(splitValue[0], splitValue[1])
+}
+
+/**
+ * Clears out all existing thumbnails from the context menu.
+ */
+function flushContextMenu() {
+    const allThumbnails = [...contextMenuContainer.getElementsByClassName("context-menu-thumbnail")];
+
+    for (const entry of allThumbnails) {
+        entry.remove();
+    }
+}
+
+/**
+ * Populates the context menu with provided details that we get from the event.
+ * 
+ * @param {*} details Details that were retrieved from the EPIGRAPH_CORE_API.EVENTS.UI.ContextMenu_Show event.
+ */
+function populateContextMenu(details) {
+    const contextMenuThumbnailsContainer = contextMenuContainer.querySelector("#contextMenuThumbnailsContainer");
+    details = details.data.primary;
+
+    const looks = [...details.data.itemData.looks.sort()];
+
+    const contextMenuTargetItemElement = contextMenuContainer.querySelector("#contextMenuTargetItem");
+    contextMenuTargetItemElement.innerHTML = details.name;
+
+    for (const entry of looks) {
+        const contextMenuThumbnail = `
+        <div class="context-menu-thumbnail" value="${details.guid}<@>${entry}" onclick="overrideVariant(this)">
+          <img src="https://via.placeholder.com/150" style="height: 80%;" alt="">
+          <div style="height: 20%;">${entry}</div>
+        </div>
+        `;
+
+        contextMenuThumbnailsContainer.insertAdjacentHTML("beforeEnd", contextMenuThumbnail);
+    }
+}
+
+/**
+ * Sets up everything required to show a custom context menu when an item is clicked in the scene.
+ */
+function setupCustomContextMenu() {
+    contextMenuContainer = document.getElementById("contextMenuContainer");
+
+    EPIGRAPH_CONFIGURATOR_WC.addEventListener(
+        EPIGRAPH_CORE_API.EVENTS.UI.ContextMenu_Show,
+        (e) => {
+            if (contextMenuVisible === false) {
+                contextMenuVisible = true;
+            }
+
+            // Clear existing data from the context menu.
+            flushContextMenu();
+            // Populate the context menu with new data.
+            populateContextMenu(e);
+            // Finally display the context menu.
+            // You may implement whatever you wish to within this function call.
+            showContextMenu();
+        }
+    );
+
+    EPIGRAPH_CONFIGURATOR_WC.addEventListener(
+        EPIGRAPH_CORE_API.EVENTS.UI.ContextMenu_Hide,
+        (e) => {
+            contextMenuVisible = false;
+            // Finally display the context menu.
+            // You may implement whatever you wish to within this function call.
+            hideContextMenu();
+        }
+    );
+
+
+    const contextMenuCloseButton = contextMenuContainer.querySelector("#contextMenuCloseButton");
+    contextMenuCloseButton.onclick = () => {
+        EPIGRAPH_CORE_API.closeContextMenu()
+    };
+}
+
+/**
+ * Entry point for the entire script.
+ */
 async function main() {
-    var EPIGRAPH_CONFIGURATOR_WC = document.getElementById(CONFIGURATOR_WC_ID);
+    EPIGRAPH_CONFIGURATOR_WC = document.getElementById(CONFIGURATOR_WC_ID);
 
     EPIGRAPH_CONFIGURATOR_WC.addEventListener(
         "coreApi:ready",
@@ -144,6 +255,13 @@ async function main() {
              * Setting up the draggable thumbnails.
             */
             setupDraggableThumbnails();
+
+            /**
+             * Set up the custom context menu implementation. 
+             * Please make sure to ask the Epigraph team to disable our 
+             * default context menu to avoid having multiple context menus.
+             */
+            setupCustomContextMenu();
         }
     );
 
@@ -162,6 +280,5 @@ async function main() {
         }
     );
 }
-
 
 main();
