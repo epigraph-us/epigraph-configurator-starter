@@ -35,7 +35,7 @@ function populateBuildTab(productData) {
 
 
 function startDragging(rawEvent) {
-    // rawEvent.stopPropagation();
+    rawEvent.preventDefault();
     const e = rawEvent.touches ? rawEvent.touches[0] : rawEvent;
 
     CURRENTLY_DRAGGING_ELEM.src = e.target.getAttribute("src");
@@ -67,7 +67,7 @@ function hasEnteredCanvas(e) {
 
 function dragCurrentThumbnail(rawEvent) {
     const e = rawEvent.touches ? rawEvent.touches[0] : rawEvent;
-    // rawEvent.stopPropagation();
+    rawEvent.preventDefault();
 
     // Calculating the position for the thumbnail that's being dragged
     CURRENTLY_DRAGGING_ELEM.style.top = `${e.clientY - CURRENTLY_DRAGGING_ELEM_COMPUTED_STYLE.height}px`;
